@@ -145,9 +145,7 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
-    func saveMeme() {
-        let memedImage = generateMemedImage()
-        
+    func saveMeme(memedImage: UIImage) {
         if let meme = self.meme {
             self.memeOperation?.updateMeme(meme,
                                            topText: self.topTextField.text,
@@ -198,20 +196,25 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     @IBAction func shareMeme(sender: AnyObject) {
         view.endEditing(true)
+        let memedImage = generateMemedImage()
         
         let alertController = UIAlertController(title: "Saved", message: nil, preferredStyle: .Alert)
-        alertController.addAction(UIAlertAction(title: "Done", style: .Default, handler: { (action) in
+        let doneAction = UIAlertAction(title: "Done", style: .Cancel, handler: { (action) in
+            self.navigationController?.popViewControllerAnimated(true)
+        })
+        let shareAction = UIAlertAction(title: "Share", style: .Default) { (action) in
+            let activityVC = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+            activityVC.completionWithItemsHandler = {(s: String?, ok: Bool, items: [AnyObject]?, err: NSError?) -> Void in
                 self.navigationController?.popViewControllerAnimated(true)
-        }))
+            }
+            self.presentViewController(activityVC, animated: true, completion: nil)
+        }
+        alertController.addAction(doneAction)
+        alertController.addAction(shareAction)
         
         presentViewController(alertController, animated: true) {
-            self.saveMeme()
+            self.saveMeme(memedImage)
         }
-        
-
-//        let activityVC = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-//        presentViewController(activityVC, animated: true) {
-//                    }
     }
     
     @IBAction func changeFont(sender: AnyObject) {
