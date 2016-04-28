@@ -36,13 +36,13 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         // Set textField Attributes
         let textFieldAttributes = [NSForegroundColorAttributeName: UIColor.blackColor(),
                                   NSFontAttributeName: defaultFont[0],
-                                  NSStrokeColorAttributeName: UIColor.orangeColor(),
+                                  NSStrokeColorAttributeName: UIColor.whiteColor(),
                                   NSStrokeWidthAttributeName: 5]
         topTextField.defaultTextAttributes = textFieldAttributes
         bottomTextField.defaultTextAttributes = textFieldAttributes
         let placeholderAttributes = [NSForegroundColorAttributeName: UIColor.blackColor(),
                                      NSFontAttributeName: defaultFont[1],
-                                     NSStrokeColorAttributeName: UIColor.grayColor(),
+                                     NSStrokeColorAttributeName: UIColor.whiteColor(),
                                      NSStrokeWidthAttributeName: 5]
         topTextField.attributedPlaceholder = NSAttributedString(string: "Enter Top Text", attributes: placeholderAttributes)
         bottomTextField.attributedPlaceholder = NSAttributedString(string: "Enter Bottom Text", attributes: placeholderAttributes)

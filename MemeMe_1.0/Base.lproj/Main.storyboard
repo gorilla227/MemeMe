@@ -25,7 +25,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Top Text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OhM-lw-rBK">
                                 <rect key="frame" x="0.0" y="144" width="600" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="A3m-uk-aGC"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="A3m-uk-aGC"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="40"/>
@@ -34,7 +34,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Bottom Text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLD-Wr-1IH">
                                 <rect key="frame" x="0.0" y="426" width="600" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Bvh-31-Z8S"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Bvh-31-Z8S"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="GurmukhiMN-Bold" family="Gurmukhi MN" pointSize="30"/>
@@ -61,7 +61,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="EHa-Er-Pot">
-                        <barButtonItem key="rightBarButtonItem" title="Save &amp; Share" id="GCW-2E-K0e">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="GCW-2E-K0e">
                             <connections>
                                 <action selector="shareMeme:" destination="Xwj-Nz-E1a" id="0X3-Wi-hVZ"/>
                             </connections>
@@ -111,7 +111,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Gxk-Gn-bvf"/>
                         <barButtonItem style="plain" id="Z31-1u-vz4">
                             <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="40" minValue="20" maxValue="60" id="7U6-r4-EqO">
-                                <rect key="frame" x="366" y="6.5" width="150" height="31"/>
+                                <rect key="frame" x="366" y="7" width="150" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="changeFont:" destination="Xwj-Nz-E1a" eventType="valueChanged" id="fLF-cr-DIX"/>
@@ -159,18 +159,18 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ruE-nd-rhq" id="Ilq-zs-a3Q">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lO6-kM-Hcx">
-                                            <rect key="frame" x="15" y="28" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="15" y="27" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nft-VX-C7z">
-                                            <rect key="frame" x="15" y="47.5" width="30.5" height="13.5"/>
+                                            <rect key="frame" x="15" y="47" width="31" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
