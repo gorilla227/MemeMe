@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--DetailVC-->
@@ -23,42 +22,44 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Top Text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OhM-lw-rBK">
-                                <rect key="frame" x="0.0" y="144" width="600" height="50"/>
+                                <rect key="frame" x="185" y="144" width="231" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="A3m-uk-aGC"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Xwj-Nz-E1a" id="Ydn-1B-fnQ"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Bottom Text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLD-Wr-1IH">
-                                <rect key="frame" x="0.0" y="426" width="600" height="50"/>
+                                <rect key="frame" x="159" y="426" width="283" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Bvh-31-Z8S"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="GurmukhiMN-Bold" family="Gurmukhi MN" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Xwj-Nz-E1a" id="cbZ-Ux-qb9"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="OhM-lw-rBK" firstAttribute="centerX" secondItem="l3z-21-AXU" secondAttribute="centerX" id="1op-zQ-lLj"/>
                             <constraint firstAttribute="trailing" secondItem="SSe-7S-XKO" secondAttribute="trailing" id="1ra-gI-HHU"/>
-                            <constraint firstItem="aLD-Wr-1IH" firstAttribute="leading" secondItem="SSe-7S-XKO" secondAttribute="leading" id="3It-vV-wwm"/>
-                            <constraint firstItem="SSe-7S-XKO" firstAttribute="top" secondItem="KJf-cY-edV" secondAttribute="bottom" id="9IG-qF-MG5"/>
+                            <constraint firstItem="aLD-Wr-1IH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SSe-7S-XKO" secondAttribute="leading" id="3It-vV-wwm"/>
+                            <constraint firstItem="aLD-Wr-1IH" firstAttribute="centerX" secondItem="l3z-21-AXU" secondAttribute="centerX" id="3cJ-Ad-frt"/>
+                            <constraint firstItem="SSe-7S-XKO" firstAttribute="top" secondItem="KJf-cY-edV" secondAttribute="bottom" id="6dl-DM-kKO"/>
                             <constraint firstItem="SSe-7S-XKO" firstAttribute="leading" secondItem="l3z-21-AXU" secondAttribute="leading" id="DyP-iG-mB9"/>
-                            <constraint firstItem="aLD-Wr-1IH" firstAttribute="trailing" secondItem="SSe-7S-XKO" secondAttribute="trailing" id="IqK-Bt-fmh"/>
+                            <constraint firstItem="aLD-Wr-1IH" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="SSe-7S-XKO" secondAttribute="trailing" id="IqK-Bt-fmh"/>
                             <constraint firstItem="OhM-lw-rBK" firstAttribute="top" secondItem="SSe-7S-XKO" secondAttribute="top" constant="80" id="ev6-fG-HwL"/>
-                            <constraint firstAttribute="topMargin" secondItem="SSe-7S-XKO" secondAttribute="top" id="hVU-Uw-1t3"/>
-                            <constraint firstItem="OhM-lw-rBK" firstAttribute="trailing" secondItem="SSe-7S-XKO" secondAttribute="trailing" id="ixX-cz-BZJ"/>
+                            <constraint firstItem="OhM-lw-rBK" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="SSe-7S-XKO" secondAttribute="trailing" id="ixX-cz-BZJ"/>
                             <constraint firstItem="hxF-3q-eM1" firstAttribute="top" secondItem="SSe-7S-XKO" secondAttribute="bottom" id="tNP-ST-3zQ"/>
-                            <constraint firstItem="OhM-lw-rBK" firstAttribute="leading" secondItem="SSe-7S-XKO" secondAttribute="leading" id="vQZ-0p-f1D"/>
-                            <constraint firstItem="aLD-Wr-1IH" firstAttribute="bottom" secondItem="SSe-7S-XKO" secondAttribute="bottom" constant="-80" id="vdr-me-Jgi"/>
+                            <constraint firstItem="OhM-lw-rBK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SSe-7S-XKO" secondAttribute="leading" id="vQZ-0p-f1D"/>
+                            <constraint firstItem="aLD-Wr-1IH" firstAttribute="bottom" secondItem="SSe-7S-XKO" secondAttribute="bottom" constant="-80" identifier="BottomTextField_Bottom" id="vdr-me-Jgi"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="hVU-Uw-1t3"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="EHa-Er-Pot">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="GCW-2E-K0e">

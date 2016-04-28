@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
@@ -34,27 +34,32 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         albumButton.enabled = UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary)
         
         // Set textField Attributes
-        let textFieldAttributes = [NSForegroundColorAttributeName: UIColor.blackColor(),
-                                  NSFontAttributeName: defaultFont[0],
-                                  NSStrokeColorAttributeName: UIColor.whiteColor(),
-                                  NSStrokeWidthAttributeName: 5]
-        topTextField.defaultTextAttributes = textFieldAttributes
-        bottomTextField.defaultTextAttributes = textFieldAttributes
-        let placeholderAttributes = [NSForegroundColorAttributeName: UIColor.blackColor(),
-                                     NSFontAttributeName: defaultFont[1],
-                                     NSStrokeColorAttributeName: UIColor.whiteColor(),
-                                     NSStrokeWidthAttributeName: 5]
-        topTextField.attributedPlaceholder = NSAttributedString(string: "Enter Top Text", attributes: placeholderAttributes)
-        bottomTextField.attributedPlaceholder = NSAttributedString(string: "Enter Bottom Text", attributes: placeholderAttributes)
-        topTextField.textAlignment = .Center
-        bottomTextField.textAlignment = .Center
-        
-        // Set font configuration
-        topTextField.inputAccessoryView = textFieldToolbar
-        bottomTextField.inputAccessoryView = textFieldToolbar
-        
+        setupTextField(topTextField, defaultText: nil, placeholder: "Enter Top Text", defaultAttributes: textFieldAttributes(defaultFont[0]))
+        setupTextField(bottomTextField, defaultText: nil, placeholder: "Enter Bottom Text", defaultAttributes: textFieldAttributes(defaultFont[1]))
+
+        // Update Data
         fillMemeToView()
         setShareButtonStat()
+    }
+    
+    func setupTextField(textField: UITextField, defaultText: String?, placeholder: String?, defaultAttributes: [String: AnyObject]?) {
+        // Set textField attributes
+        textField.defaultTextAttributes = defaultAttributes!
+        textField.text = defaultText
+        if let ph = placeholder {
+            textField.attributedPlaceholder = NSAttributedString(string: ph, attributes: defaultAttributes!)
+        }
+        textField.textAlignment = .Center
+        
+        // Set font configuration toolbar
+        textField.inputAccessoryView = textFieldToolbar
+    }
+    
+    func textFieldAttributes(font: UIFont) -> [String: AnyObject] {
+        return [NSForegroundColorAttributeName: UIColor.whiteColor(),
+                NSFontAttributeName: font,
+                NSStrokeColorAttributeName: UIColor.blackColor(),
+                NSStrokeWidthAttributeName: -3]
     }
     
     func fillMemeToView() {
@@ -78,10 +83,13 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        if bottomTextField.isFirstResponder() {
-            view.transform = CGAffineTransformMakeTranslation(0, -getKeyboardHeight(notification))
+        // Move view to prevent keyboard covers textField
+        if let textField = activedTextField() {
+            let moveDistance = max((getKeyboardHeight(notification) - (view.frame.size.height - textField.frame.size.height - textField.frame.origin.y)), 0)
+            view.transform = CGAffineTransformMakeTranslation(0, -moveDistance)
         }
         
+        // Setup font configuration controls
         if let activedTextField = activedTextField() {
             for font in defaultFont {
                 if font.fontName == activedTextField.font?.fontName {
@@ -147,7 +155,7 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     func saveMeme(memedImage: UIImage) {
         if let meme = self.meme {
-            self.memeOperation?.updateMeme(meme,
+            memeOperation?.updateMeme(meme,
                                            topText: self.topTextField.text,
                                            bottomText: self.bottomTextField.text,
                                            rawImage: self.imageView.image!,
@@ -157,7 +165,7 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                                            bottomTextFont: (self.bottomTextField.font?.fontName)!,
                                            bottomTextFontSize: (self.bottomTextField.font?.pointSize)!)
         } else {
-            self.memeOperation?.insertMeme(self.topTextField.text,
+            memeOperation?.insertMeme(self.topTextField.text,
                                            bottomText: self.bottomTextField.text,
                                            rawImage: self.imageView.image!,
                                            memedImage: memedImage,
@@ -166,6 +174,12 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                                            bottomTextFont: (self.bottomTextField.font?.fontName)!,
                                            bottomTextFontSize: (self.bottomTextField.font?.pointSize)!)
         }
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
     }
     
     // MARK: UIImagePickerControllerDelegate
