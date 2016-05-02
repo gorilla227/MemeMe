@@ -18,32 +18,12 @@ class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
-
-//        loadMemes()
     }
     
     override func viewWillAppear(animated: Bool) {
         navigationController?.setToolbarHidden(true, animated: false)
     }
     
-//    func loadMemes() {
-//        memeOperation = MemeOperation(delegate: self)
-//        let queue = NSOperationQueue()
-//        let fetchOP = NSBlockOperation { 
-//            self.memeOperation?.fetchMeme()
-//        }
-//        let refreshOP = NSBlockOperation { 
-//            self.tableView.reloadData()
-//        }
-//    
-//        refreshOP.addDependency(fetchOP)
-//        queue.addOperation(fetchOP)
-//        NSOperationQueue.mainQueue().addOperation(refreshOP)
-//    }
-    
-//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-//        tableView.reloadData()
-//    }
 
     // MARK: - Table view data source
 

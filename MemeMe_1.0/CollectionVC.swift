@@ -45,9 +45,6 @@ class CollectionVC: UICollectionViewController {
         collectionViewFlowLayout.minimumInteritemSpacing = space
         collectionViewFlowLayout.minimumLineSpacing = space
         collectionViewFlowLayout.itemSize = CGSizeMake(dimension, dimension)
-        
-        
-        print(space, dimension)
     }
     
     // MARK: - Navigation

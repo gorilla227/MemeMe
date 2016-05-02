@@ -9,13 +9,14 @@
 import UIKit
 import CoreData
 
-class TabBarController: UITabBarController, NSFetchedResultsControllerDelegate {
+class TabBarController: UITabBarController, UITabBarControllerDelegate, NSFetchedResultsControllerDelegate {
     var memeOperation: MemeOperation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        delegate = self
         loadMemes()
     }
     
@@ -48,7 +49,19 @@ class TabBarController: UITabBarController, NSFetchedResultsControllerDelegate {
                 (selectedVC as! CollectionVC).collectionView?.reloadData()
             }
         }
-        
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        setupTitle()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setupTitle()
+    }
+
+    func setupTitle() {
+        navigationItem.title = selectedViewController?.navigationItem.title
     }
     
     // MARK: - Navigation
