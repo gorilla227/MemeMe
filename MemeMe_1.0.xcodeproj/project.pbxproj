@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1FF20D21CD70A500090E15D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF20D11CD70A500090E15D /* TabBarController.swift */; };
+		A1FF20D41CD7167C0090E15D /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF20D31CD7167C0090E15D /* CollectionVC.swift */; };
 		B27DC9971CD11F9D009B44AF /* MemeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27DC9961CD11F9D009B44AF /* MemeOperation.swift */; };
 		B27DC99B1CD16EE7009B44AF /* Meme+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27DC99A1CD16EE7009B44AF /* Meme+CoreDataProperties.swift */; };
 		B2F3A4C11CCFDAF70013FBEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F3A4C01CCFDAF70013FBEE /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		A1FF20D11CD70A500090E15D /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		A1FF20D31CD7167C0090E15D /* CollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 		B27DC9961CD11F9D009B44AF /* MemeOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeOperation.swift; sourceTree = "<group>"; };
 		B27DC99A1CD16EE7009B44AF /* Meme+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Meme+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B2F3A4BD1CCFDAF70013FBEE /* MemeMe_1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe_1.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,7 @@
 				B2F3A4C01CCFDAF70013FBEE /* AppDelegate.swift */,
 				A1FF20D11CD70A500090E15D /* TabBarController.swift */,
 				B2F3A4F21CD03C340013FBEE /* ListVC.swift */,
+				A1FF20D31CD7167C0090E15D /* CollectionVC.swift */,
 				B2F3A4C21CCFDAF70013FBEE /* DetailVC.swift */,
 				B2F3A4C41CCFDAF70013FBEE /* Main.storyboard */,
 				B2F3A4C71CCFDAF70013FBEE /* Assets.xcassets */,
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B27DC99B1CD16EE7009B44AF /* Meme+CoreDataProperties.swift in Sources */,
+				A1FF20D41CD7167C0090E15D /* CollectionVC.swift in Sources */,
 				A1FF20D21CD70A500090E15D /* TabBarController.swift in Sources */,
 				B2F3A4F31CD03C340013FBEE /* ListVC.swift in Sources */,
 				B2F3A4C31CCFDAF70013FBEE /* DetailVC.swift in Sources */,

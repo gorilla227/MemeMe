@@ -96,18 +96,11 @@ class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier! {
-        case "ViewMemo":
+        if segue.identifier == "ViewMeme" {
             let detailVC = segue.destinationViewController as! DetailVC
             let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
             detailVC.meme = memeOperation.fetchResultController?.objectAtIndexPath(indexPath!) as? Meme
             detailVC.memeOperation = memeOperation
-            
-        case "AddMeme":
-            let detailVC = segue.destinationViewController as! DetailVC
-            detailVC.memeOperation = memeOperation
-        default:
-            break
         }
     }
 }

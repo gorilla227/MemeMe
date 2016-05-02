@@ -39,13 +39,14 @@ class TabBarController: UITabBarController, NSFetchedResultsControllerDelegate {
     }
     
     func refreshDataView() {
-        if let selectedVC = selectedViewController {
+        for selectedVC in viewControllers! {
             if selectedVC.isMemberOfClass(ListVC) {
                 (selectedVC as! ListVC).tableView.reloadData()
-                return
             }
             
-            // TODO: refresh CollectionViewController
+            if selectedVC.isMemberOfClass(CollectionVC) {
+                (selectedVC as! CollectionVC).collectionView?.reloadData()
+            }
         }
         
     }
