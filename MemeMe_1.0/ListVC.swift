@@ -10,38 +10,40 @@ import UIKit
 import CoreData
 
 class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
-    var memeOperation: MemeOperation?
+    var memeOperation: MemeOperation {
+        return (tabBarController as! TabBarController).memeOperation!
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
 
-        loadMemes()
+//        loadMemes()
     }
     
     override func viewWillAppear(animated: Bool) {
         navigationController?.setToolbarHidden(true, animated: false)
     }
     
-    func loadMemes() {
-        memeOperation = MemeOperation(delegate: self)
-        let queue = NSOperationQueue()
-        let fetchOP = NSBlockOperation { 
-            self.memeOperation?.fetchMeme()
-        }
-        let refreshOP = NSBlockOperation { 
-            self.tableView.reloadData()
-        }
-        
-        refreshOP.addDependency(fetchOP)
-        queue.addOperation(fetchOP)
-        NSOperationQueue.mainQueue().addOperation(refreshOP)
-    }
+//    func loadMemes() {
+//        memeOperation = MemeOperation(delegate: self)
+//        let queue = NSOperationQueue()
+//        let fetchOP = NSBlockOperation { 
+//            self.memeOperation?.fetchMeme()
+//        }
+//        let refreshOP = NSBlockOperation { 
+//            self.tableView.reloadData()
+//        }
+//    
+//        refreshOP.addDependency(fetchOP)
+//        queue.addOperation(fetchOP)
+//        NSOperationQueue.mainQueue().addOperation(refreshOP)
+//    }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        tableView.reloadData()
-    }
+//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+//        tableView.reloadData()
+//    }
 
     // MARK: - Table view data source
 
@@ -52,7 +54,7 @@ class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if let allMemes = memeOperation?.fetchResultController?.fetchedObjects {
+        if let allMemes = memeOperation.fetchResultController?.fetchedObjects {
             return allMemes.count
         } else {
             return 0
@@ -61,7 +63,7 @@ class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell", forIndexPath: indexPath)
-        let cellData: Meme = memeOperation!.fetchResultController?.objectAtIndexPath(indexPath) as! Meme
+        let cellData: Meme = memeOperation.fetchResultController?.objectAtIndexPath(indexPath) as! Meme
         // Configure the cell...
         cell.textLabel?.text = cellData.topText
         cell.detailTextLabel?.text = cellData.bottomText
@@ -84,11 +86,9 @@ class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            let meme = memeOperation!.fetchResultController?.objectAtIndexPath(indexPath) as! Meme
-            memeOperation!.deleteMeme(meme)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let meme = memeOperation.fetchResultController?.objectAtIndexPath(indexPath) as! Meme
+            memeOperation.deleteMeme(meme)
+        } 
     }
 
 
@@ -100,7 +100,7 @@ class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
         case "ViewMemo":
             let detailVC = segue.destinationViewController as! DetailVC
             let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
-            detailVC.meme = memeOperation!.fetchResultController?.objectAtIndexPath(indexPath!) as? Meme
+            detailVC.meme = memeOperation.fetchResultController?.objectAtIndexPath(indexPath!) as? Meme
             detailVC.memeOperation = memeOperation
             
         case "AddMeme":
@@ -110,6 +110,4 @@ class ListVC: UITableViewController, NSFetchedResultsControllerDelegate {
             break
         }
     }
-
-
 }
