@@ -18,6 +18,7 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var textFieldToolbar: UIToolbar!
     @IBOutlet weak var fontSegmentedControl: UISegmentedControl!
     @IBOutlet weak var fontSizeSlider: UISlider!
+    @IBOutlet weak var drawingView: UIView!
 
     var meme: Meme?
     var memeOperation: MemeOperation?
@@ -27,8 +28,6 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let flexiableSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-        self.toolbarItems = [flexiableSpace, cameraButton, flexiableSpace, albumButton, flexiableSpace]
         
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
         albumButton.enabled = UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary)
@@ -38,7 +37,6 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         setupTextField(bottomTextField, defaultText: nil, placeholder: "Enter Bottom Text", defaultAttributes: textFieldAttributes(defaultFont[1]))
 
         // Update Data
-        fillMemeToView()
         setShareButtonStat()
     }
     
@@ -62,17 +60,6 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 NSStrokeWidthAttributeName: -3]
     }
     
-    func fillMemeToView() {
-        if let memeData = meme {
-            topTextField.text = memeData.topText
-            bottomTextField.text = memeData.bottomText
-            imageView.image = UIImage(data: memeData.rawImage!)
-            
-            topTextField.font = UIFont(name: memeData.topTextFont!, size: CGFloat((memeData.topTextFontSize?.floatValue)!))
-            bottomTextField.font = UIFont(name: memeData.bottomTextFont!, size: CGFloat((memeData.bottomTextFontSize?.floatValue)!))
-        }
-    }
-    
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         if let userInfo = notification.userInfo {
             let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue
@@ -85,8 +72,9 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func keyboardWillShow(notification: NSNotification) {
         // Move view to prevent keyboard covers textField
         if let textField = activedTextField() {
-            let moveDistance = max((getKeyboardHeight(notification) - (view.frame.size.height - textField.frame.size.height - textField.frame.origin.y)), 0)
-            view.transform = CGAffineTransformMakeTranslation(0, -moveDistance)
+            let testRect = drawingView.convertRect(textField.frame, toView: view)
+            let moveDistance = max((getKeyboardHeight(notification) - (view.frame.size.height - testRect.size.height - testRect.origin.y)), 0)
+            drawingView.transform = CGAffineTransformMakeTranslation(0, -moveDistance)
         }
         
         // Setup font configuration controls
@@ -103,7 +91,7 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     func keyboardWillHidden(notification: NSNotification) {
-        view.transform = CGAffineTransformMakeTranslation(0, 0)
+        drawingView.transform = CGAffineTransformMakeTranslation(0, 0)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -131,8 +119,8 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         bottomTextField.hidden = (bottomTextField.text?.isEmpty)!
         
         // Render view to an image
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(drawingView.frame.size)
+        drawingView.drawViewHierarchyInRect(drawingView.bounds, afterScreenUpdates: true)
         let memedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
@@ -214,12 +202,12 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         let alertController = UIAlertController(title: "Saved", message: nil, preferredStyle: .Alert)
         let doneAction = UIAlertAction(title: "Done", style: .Cancel, handler: { (action) in
-            self.navigationController?.popViewControllerAnimated(true)
+            self.dismissViewControllerAnimated(true, completion: nil)
         })
         let shareAction = UIAlertAction(title: "Share", style: .Default) { (action) in
             let activityVC = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
             activityVC.completionWithItemsHandler = {(s: String?, ok: Bool, items: [AnyObject]?, err: NSError?) -> Void in
-                self.navigationController?.popViewControllerAnimated(true)
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
             self.presentViewController(activityVC, animated: true, completion: nil)
         }
@@ -235,5 +223,9 @@ class DetailVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         if let textField = activedTextField() {
             textField.font = UIFont(name: defaultFont[fontSegmentedControl.selectedSegmentIndex].fontName, size: CGFloat(fontSizeSlider.value))
         }
+    }
+    
+    @IBAction func cancelButtonOnClicked(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
